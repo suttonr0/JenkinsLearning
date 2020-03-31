@@ -18,10 +18,10 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-               retry(3) {
-                  sh './nonexistent.sh'
-               }
+            steps {       
+                timeout(time: 1, unit: 'MINUTES') {
+                    sh './health-check.sh'
+                }
             }
         }
     }
