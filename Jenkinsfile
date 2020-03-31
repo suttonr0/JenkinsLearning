@@ -1,6 +1,10 @@
 pipeline {
     agent { docker { image 'python:3.5.1' } }
  
+    environment {
+        KEY = credentials('KeyCredential')
+    }
+
  
     stages {
         stage('Build') {
@@ -10,6 +14,7 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
+                sh 'echo secret=$KEY'
             }
         }
         stage('Test') {
